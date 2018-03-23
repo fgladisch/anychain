@@ -1,0 +1,22 @@
+{
+  "name": "fxchain",
+  "version": "0.1.0",
+  "description": "The best blockchain in the world.",
+  "main": "src/index.ts",
+  "repository": "git@github.com:fgladisch/fxchain.git",
+  "author": "Felix Gladisch <felix@felixgladisch.de>",
+  "license": "MIT",
+  "private": false,
+  "devDependencies": {
+    "@types/node": "^9.6.0",
+    "tslint": "5.9.1",
+    "tslint-config-prettier": "^1.10.0",
+    "typescript": "2.7.2"
+  },
+  "scripts": {
+    "compile": "tsc"
+  },
+  "engines": {
+    "node": "^8 || ^9"
+  }
+}
