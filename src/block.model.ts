@@ -1,4 +1,4 @@
-import { calculateBlockHash, createHash } from "./crypto-util";
+import { calculateBlockHash, createHash } from "./util/crypto";
 
 export interface BlockParams {
 	index: number;
