@@ -1,5 +1,5 @@
 import { Block, BlockParams } from "./block.model";
-import { isValidChain, isValidNewBlock } from "./util/blockchain";
+import { isValidChain } from "./util/blockchain";
 import { calculateBlockHash } from "./util/crypto";
 
 const GENESIS_BLOCK_PARAMS: BlockParams = {
@@ -11,7 +11,7 @@ const GENESIS_BLOCK_PARAMS: BlockParams = {
 export class Blockchain {
 	private chain: Block[];
 
-	constructor(chain: Block[]) {
+	constructor(chain?: Block[]) {
 		if (chain) {
 			this.chain = chain;
 		} else {
@@ -47,9 +47,8 @@ export class Blockchain {
 	}
 
 	public replaceChain(newBlocks: Block[]): void {
-		if (isValidChain(this.chain[0], newBlocks) && newBlocks.length > this.chain.length) {
+		if (isValidChain(this.getGenesisBlock(), newBlocks) && newBlocks.length > this.chain.length) {
 			this.chain = newBlocks;
-			// TODO: broadcastLatest();
 		}
 	}
 }

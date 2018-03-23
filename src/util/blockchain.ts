@@ -7,10 +7,12 @@ export function isValidChain(genesis: Block, chain: Block[]): boolean {
 		return false;
 	}
 
-	return chain.reduce(
-		(valid, block) => isValidNewBlock(block, this.chain[block.index - 1]) || valid,
-		true
-	);
+	return chain.reduce((valid, block) => {
+		if (block.index === 0) {
+			return true;
+		}
+		return isValidNewBlock(block, chain[block.index - 1]) || valid;
+	}, true);
 }
 
 export function isValidNewBlock(newBlock: Block, previousBlock: Block): boolean {
