@@ -7,8 +7,8 @@ export function isValidChain(genesis: Block, chain: Block[]): boolean {
 		return false;
 	}
 
-	return this.chain.reduce(
-		(isValid, block) => isValidNewBlock(block, this.chain[block.index - 1]) || isValid,
+	return chain.reduce(
+		(valid, block) => isValidNewBlock(block, this.chain[block.index - 1]) || valid,
 		true
 	);
 }
