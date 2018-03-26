@@ -48,7 +48,7 @@ npm install --save @anychain/core
 
 ### `#toJSON()`
 
-`blockchain.toJSON()` will return the following JSON for the example above:
+Returns the following JSON for the example above:
 
 ```json
 [
