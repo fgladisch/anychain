@@ -11,9 +11,9 @@
 		"semicolon": true,
 		"no-implicit-dependencies": false,
 		"interface-name": false,
-		"no-any": true,
 		"indent": [true, "tabs"],
 		"quotemark": [true, "double"],
-		"no-console": false
+		"no-console": false,
+		"array-type": false
 	}
 }
