@@ -40,7 +40,7 @@ describe("Blockchain", () => {
     const copy: Blockchain<User> = new Blockchain(blockchain.getChain().slice());
     copy.add(TEST_DATA);
     assert.lengthOf(blockchain.getChain(), 2);
-    blockchain.replaceChain(copy.getChain());
+    blockchain.update(copy.getChain());
     assert.lengthOf(blockchain.getChain(), 3);
   });
 
@@ -51,7 +51,7 @@ describe("Blockchain", () => {
     copy.add(TEST_DATA);
     const corruptedChain: Block<User>[] = copy.getChain().slice();
     corruptedChain.splice(1, 1);
-    blockchain.replaceChain(corruptedChain);
+    blockchain.update(corruptedChain);
     assert.notEqual(blockchain.getChain(), corruptedChain);
   });
 });

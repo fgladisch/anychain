@@ -1,8 +1,16 @@
 import { Block } from "./block.model";
 
 export class Blockchain<T> {
-  public static validate(genesis: Block<any>, chain: Block<any>[]): boolean {
-    if (Block.calculateHash(genesis) !== chain[0].hash) {
+  public static validate(chain: Block<any>[], genesis?: Block<any>): boolean {
+    if (!Array.isArray(chain)) {
+      return false;
+    }
+
+    if (chain.length === 0) {
+      return false;
+    }
+
+    if (genesis && Block.calculateHash(genesis) !== chain[0].hash) {
       return false;
     }
 
@@ -18,6 +26,9 @@ export class Blockchain<T> {
 
   constructor(chain?: Block<T>[]) {
     if (chain) {
+      if (!Blockchain.validate(chain)) {
+        throw new Error("Invalid chain array.");
+      }
       this.chain = chain;
     } else {
       const genesisBlock: Block<T> = new Block<T>(null, "GENESIS");
@@ -39,16 +50,19 @@ export class Blockchain<T> {
 
   public add(data: T): Block<T> {
     const predecessor: Block<T> = this.getLatestBlock();
-    const nextBlock: Block<T> = new Block<T>(predecessor, data);
-    this.chain.push(nextBlock);
-    return nextBlock;
+    const next: Block<T> = new Block<T>(predecessor, data);
+    this.chain.push(next);
+    return next;
   }
 
-  public replaceChain(newBlocks: Block<T>[]): void {
-    const isValid: boolean = Blockchain.validate(this.getGenesisBlock(), newBlocks);
-    if (isValid && newBlocks.length > this.chain.length) {
-      this.chain = newBlocks;
+  public update(chain: Block<T>[]): boolean {
+    const isValid: boolean = Blockchain.validate(chain, this.getGenesisBlock());
+    const isChainLonger: boolean = chain.length > this.chain.length;
+    if (isValid && isChainLonger) {
+      this.chain = chain;
+      return true;
     }
+    return false;
   }
 
   public toJSON(): string {
