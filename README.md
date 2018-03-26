@@ -96,3 +96,7 @@ Returns the first `block` in the `chain` (genesis).
 ### `#getLatestBlock(): Block<T>`
 
 Returns the latest `block` in the `chain`.
+
+## License
+
+[MIT](LICENSE)
