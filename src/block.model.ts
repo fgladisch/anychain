@@ -3,34 +3,34 @@ import crypto = require("crypto");
 export class Block<T> {
   public static calculateHash(block: Block<any>): string {
     const json: string = JSON.stringify(block.data);
-    const text: string = `${block.index}${block.predecessor}${block.time}${json}`;
+    const text: string = `${block.index}${block.parent}${block.time}${json}`;
     return crypto
       .createHash("sha256")
       .update(text, "utf8")
       .digest("hex");
   }
 
-  public static validate(block: Block<any>, predecessor: Block<any>): boolean {
+  public static validate(block: Block<any>, parent: Block<any>): boolean {
     return (
-      predecessor.index + 1 === block.index &&
-      predecessor.hash === block.predecessor &&
+      parent.index + 1 === block.index &&
+      parent.hash === block.parent &&
       Block.calculateHash(block) === block.hash
     );
   }
 
   public index: number;
-  public predecessor: string;
+  public parent: string;
   public time: number;
   public data: T | string;
   public hash: string;
 
-  constructor(predecessor: Block<T>, data: T | string) {
-    if (predecessor) {
-      this.index = predecessor.index + 1;
-      this.predecessor = predecessor.hash;
+  constructor(parent: Block<T>, data: T | string) {
+    if (parent) {
+      this.index = parent.index + 1;
+      this.parent = parent.hash;
     } else {
       this.index = 0;
-      this.predecessor = null;
+      this.parent = null;
     }
 
     this.data = data;

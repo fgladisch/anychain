@@ -66,14 +66,14 @@ Returns the following JSON for the example above:
 [
   {
     "index": 0,
-    "predecessor": null,
+    "parent": null,
     "data": "GENESIS",
     "time": 1522053753184,
     "hash": "42eb51b086fadc504ca3f494e6332788a008c8aff7b7369d22268540e55f1854"
   },
   {
     "index": 1,
-    "predecessor": "42eb51b086fadc504ca3f494e6332788a008c8aff7b7369d22268540e55f1854",
+    "parent": "42eb51b086fadc504ca3f494e6332788a008c8aff7b7369d22268540e55f1854",
     "data": {
       "id": 42,
       "firstName": "Elon",

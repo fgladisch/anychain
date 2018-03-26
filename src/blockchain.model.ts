@@ -1,7 +1,7 @@
 import { Block } from "./block.model";
 
 export class Blockchain<T> {
-  public static validate(chain: Block<any>[], genesis?: Block<any>): boolean {
+  public static validateChain(chain: Block<any>[], genesis?: Block<any>): boolean {
     if (!Array.isArray(chain)) {
       return false;
     }
@@ -15,10 +15,7 @@ export class Blockchain<T> {
     }
 
     return chain.reduce((valid, block) => {
-      if (block.index === 0) {
-        return true;
-      }
-      return Block.validate(block, chain[block.index - 1]) || valid;
+      return (block.index !== 0 && Block.validate(block, chain[block.index - 1])) || valid;
     }, true);
   }
 
@@ -26,14 +23,14 @@ export class Blockchain<T> {
 
   constructor(chain?: Block<T>[]) {
     if (chain) {
-      if (!Blockchain.validate(chain)) {
+      if (!Blockchain.validateChain(chain)) {
         throw new Error("Invalid chain array.");
       }
       this.chain = chain;
-    } else {
-      const genesisBlock: Block<T> = new Block<T>(null, "GENESIS");
-      this.chain = [genesisBlock];
+      return;
     }
+    const genesisBlock: Block<T> = new Block<T>(null, "GENESIS");
+    this.chain = [genesisBlock];
   }
 
   public getChain(): Block<T>[] {
@@ -49,14 +46,14 @@ export class Blockchain<T> {
   }
 
   public add(data: T): Block<T> {
-    const predecessor: Block<T> = this.getLatestBlock();
-    const next: Block<T> = new Block<T>(predecessor, data);
+    const parent: Block<T> = this.getLatestBlock();
+    const next: Block<T> = new Block<T>(parent, data);
     this.chain.push(next);
     return next;
   }
 
   public update(chain: Block<T>[]): boolean {
-    const isValid: boolean = Blockchain.validate(chain, this.getGenesisBlock());
+    const isValid: boolean = Blockchain.validateChain(chain, this.getGenesisBlock());
     const isChainLonger: boolean = chain.length > this.chain.length;
     if (isValid && isChainLonger) {
       this.chain = chain;
@@ -66,6 +63,6 @@ export class Blockchain<T> {
   }
 
   public toJSON(): string {
-    return JSON.stringify(this.chain, null, 2);
+    return JSON.stringify(this.chain);
   }
 }
