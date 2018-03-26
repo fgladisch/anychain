@@ -1,25 +1,25 @@
 {
-	"name": "@anychain/core",
-	"version": "0.1.0",
-	"description": "Blockchain data structure for Node.js",
-	"main": "src/index.ts",
-	"repository": "git@github.com:fgladisch/anychain.git",
-	"author": "Felix Gladisch <felix@felixgladisch.de>",
-	"license": "MIT",
-	"private": false,
-	"devDependencies": {
-		"@types/chai": "4.1.2",
-		"@types/mocha": "5.0.0",
-		"@types/node": "9.6.0",
-		"chai": "4.1.2",
-		"mocha": "5.0.5",
-		"ts-node": "5.0.1",
-		"tslint": "5.9.1",
-		"tslint-config-prettier": "1.10.0",
-		"typescript": "2.7.2"
-	},
-	"scripts": {
-		"compile": "tsc",
-		"test": "mocha -r ts-node/register src/**/*.test.ts"
-	}
+  "name": "@anychain/core",
+  "version": "0.1.0",
+  "description": "Blockchain data structure for Node.js",
+  "main": "src/index.ts",
+  "repository": "git@github.com:fgladisch/anychain.git",
+  "author": "Felix Gladisch <felix@felixgladisch.de>",
+  "license": "MIT",
+  "private": false,
+  "devDependencies": {
+    "@types/chai": "4.1.2",
+    "@types/mocha": "5.0.0",
+    "@types/node": "9.6.0",
+    "chai": "4.1.2",
+    "mocha": "5.0.5",
+    "ts-node": "5.0.1",
+    "tslint": "5.9.1",
+    "tslint-config-prettier": "1.10.0",
+    "typescript": "2.7.2"
+  },
+  "scripts": {
+    "compile": "tsc",
+    "test": "mocha -r ts-node/register src/**/*.test.ts"
+  }
 }
