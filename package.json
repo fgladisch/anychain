@@ -26,6 +26,6 @@
   "scripts": {
     "build": "tsc",
     "test": "mocha -r ts-node/register src/**/*.test.ts",
-    "prepublishOnly": "yarn compile"
+    "prepublishOnly": "yarn build"
   }
 }
