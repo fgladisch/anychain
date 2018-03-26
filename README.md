@@ -46,9 +46,9 @@ npm install --save @anychain/core
 
 ## API
 
-### #toJSON()
+### `#toJSON()`
 
-The method `blockchain.toJSON()` will output the following JSON for the example above:
+`blockchain.toJSON()` will return the following JSON for the example above:
 
 ```json
 [
@@ -73,14 +73,14 @@ The method `blockchain.toJSON()` will output the following JSON for the example 
 ]
 ```
 
-### #getChain()
+### `#getChain()`
 
-Returns the full chain as array.
+`blockchain.getChain()` Returns the full chain as array.
 
-### #getGenesisBlock()
+### `#getGenesisBlock()`
 
-Returns the first block in the chain (genesis).
+`blockchain.getGenesisBlock()` Returns the first block in the chain (genesis).
 
-### #getLatestBlock()
+### `#getLatestBlock()`
 
-Returns the latest block in the chain.
+`blockchain.getLatestBlock()` returns the latest block in the chain.
