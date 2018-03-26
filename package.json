@@ -11,7 +11,7 @@
   "bugs": {
     "url": "https://github.com/fgladisch/anychain/issues"
   },
-  "keywords": ["blockchain", "typescript"],
+  "keywords": ["blockchain", "crypto", "peer-to-peer", "p2p", "typescript"],
   "devDependencies": {
     "@types/chai": "4.1.2",
     "@types/mocha": "5.0.0",
@@ -26,6 +26,6 @@
   "scripts": {
     "build": "tsc",
     "test": "mocha -r ts-node/register src/**/*.test.ts",
-    "prepublishOnly": "yarn build"
+    "prepublishOnly": "yarn test && yarn build"
   }
 }
