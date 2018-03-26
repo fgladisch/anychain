@@ -1,9 +1,9 @@
 {
-	"name": "fxchain",
+	"name": "@anychain/core",
 	"version": "0.1.0",
-	"description": "The best blockchain in the world.",
+	"description": "Blockchain data structure for Node.js",
 	"main": "src/index.ts",
-	"repository": "git@github.com:fgladisch/fxchain.git",
+	"repository": "git@github.com:fgladisch/anychain.git",
 	"author": "Felix Gladisch <felix@felixgladisch.de>",
 	"license": "MIT",
 	"private": false,
@@ -21,8 +21,5 @@
 	"scripts": {
 		"compile": "tsc",
 		"test": "mocha -r ts-node/register src/**/*.test.ts"
-	},
-	"engines": {
-		"node": "8 || 9"
 	}
 }
