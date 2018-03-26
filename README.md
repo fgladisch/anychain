@@ -1,11 +1,25 @@
 # anychain
 
-Put a blockchain in your life!
+A blockchain data structure for Node.js! :rocket:
 
-## Quick Start
+## Quick Start (JavaScript)
 
 ```ts
-import { Block, Blockchain } from "@anychain/core";
+const { Blockchain } = require("@anychain/core");
+
+const blockchain = new Blockchain();
+
+blockchain.add({
+  id: 42,
+  firstName: "Elon",
+  lastName: "Musk"
+});
+```
+
+## Quick Start (TypeScript)
+
+```ts
+import { Blockchain } from "@anychain/core";
 
 interface User {
   id: number;
@@ -20,6 +34,14 @@ blockchain.add({
   firstName: "Elon",
   lastName: "Musk"
 });
+```
+
+## Installation
+
+```bash
+yarn add @anychain/core
+# or
+npm install --save @anychain/core
 ```
 
 ## API
