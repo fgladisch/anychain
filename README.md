@@ -75,12 +75,12 @@ npm install --save @anychain/core
 
 ### `#getChain()`
 
-`blockchain.getChain()` Returns the full chain as array.
+Returns the full chain as array.
 
 ### `#getGenesisBlock()`
 
-`blockchain.getGenesisBlock()` Returns the first block in the chain (genesis).
+Returns the first block in the chain (genesis).
 
 ### `#getLatestBlock()`
 
-`blockchain.getLatestBlock()` returns the latest block in the chain.
+Returns the latest block in the chain.
