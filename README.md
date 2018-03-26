@@ -19,7 +19,7 @@ blockchain.add({
 ## Quick Start (TypeScript)
 
 ```ts
-import { Blockchain } from "@anychain/core";
+import { Block, Blockchain } from "@anychain/core";
 
 interface User {
   id: number;
@@ -29,7 +29,7 @@ interface User {
 
 const blockchain: Blockchain<User> = new Blockchain<User>();
 
-blockchain.add({
+const newBlock: Block<User> = blockchain.add({
   id: 42,
   firstName: "Elon",
   lastName: "Musk"
@@ -46,7 +46,19 @@ npm install --save @anychain/core
 
 ## API
 
-### `#toJSON()`
+### `constructor(chain?: Block<T>[])`
+
+Pass an optional existing `chain` to the constructor.
+
+### `#add(data: T): Block<T>`
+
+Adds a new block with the given data to the blockchain.
+
+### `#update(chain: Block<T>[]): boolean`
+
+Overwrite the current `chain` with a more recent one. Returns `true` when the update was successful.
+
+### `#toJSON(): string`
 
 Returns the following JSON for the example above:
 
@@ -73,14 +85,14 @@ Returns the following JSON for the example above:
 ]
 ```
 
-### `#getChain()`
+### `#getChain(): Block<T>[]`
 
-Returns the full chain as array.
+Returns the full `chain` as array.
 
-### `#getGenesisBlock()`
+### `#getGenesisBlock(): Block<T>`
 
-Returns the first block in the chain (genesis).
+Returns the first `block` in the `chain` (genesis).
 
-### `#getLatestBlock()`
+### `#getLatestBlock(): Block<T>`
 
-Returns the latest block in the chain.
+Returns the latest `block` in the `chain`.
