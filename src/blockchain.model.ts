@@ -1,54 +1,57 @@
-import { Block, BlockParams } from "./block.model";
-import { isValidChain } from "./util/blockchain";
-import { calculateBlockHash } from "./util/crypto";
+import { Block } from "./block.model";
 
-const GENESIS_BLOCK_PARAMS: BlockParams = {
-	data: "GENESIS",
-	index: 0,
-	previousHash: null
-};
+export class Blockchain<T> {
+	public static validate(genesis: Block<any>, chain: Block<any>[]): boolean {
+		if (Block.calculateHash(genesis) !== chain[0].hash) {
+			return false;
+		}
 
-export class Blockchain {
-	private chain: Block[];
+		return chain.reduce((valid, block) => {
+			if (block.index === 0) {
+				return true;
+			}
+			return Block.validate(block, chain[block.index - 1]) || valid;
+		}, true);
+	}
 
-	constructor(chain?: Block[]) {
+	private chain: Block<T>[];
+
+	constructor(chain?: Block<T>[]) {
 		if (chain) {
 			this.chain = chain;
 		} else {
-			const genesisBlock: Block = new Block(GENESIS_BLOCK_PARAMS);
+			const genesisBlock: Block<T> = new Block<T>(null, "GENESIS");
 			this.chain = [genesisBlock];
 		}
 	}
 
-	public getChain(): Block[] {
+	public getChain(): Block<T>[] {
 		return this.chain;
 	}
 
-	public getGenesisBlock(): Block {
+	public getGenesisBlock(): Block<T> {
 		return this.chain[0];
 	}
 
-	public getLatestBlock(): Block {
+	public getLatestBlock(): Block<T> {
 		return this.chain[this.chain.length - 1];
 	}
 
-	public generateNextBlock(data: string): Block {
-		const previousBlock: Block = this.getLatestBlock();
-
-		const nextBlock: Block = new Block({
-			data,
-			index: previousBlock.index + 1,
-			previousHash: previousBlock.hash
-		});
-
+	public add(data: T): Block<T> {
+		const predecessor: Block<T> = this.getLatestBlock();
+		const nextBlock: Block<T> = new Block<T>(predecessor, data);
 		this.chain.push(nextBlock);
-
 		return nextBlock;
 	}
 
-	public replaceChain(newBlocks: Block[]): void {
-		if (isValidChain(this.getGenesisBlock(), newBlocks) && newBlocks.length > this.chain.length) {
+	public replaceChain(newBlocks: Block<T>[]): void {
+		const isValid: boolean = Blockchain.validate(this.getGenesisBlock(), newBlocks);
+		if (isValid && newBlocks.length > this.chain.length) {
 			this.chain = newBlocks;
 		}
+	}
+
+	public toJSON(): string {
+		return JSON.stringify(this.chain, null, 2);
 	}
 }
