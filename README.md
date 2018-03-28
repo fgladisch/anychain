@@ -21,19 +21,23 @@ blockchain.add({
 ```ts
 import { Block, Blockchain } from "@anychain/core";
 
-interface User {
-  id: number;
-  firstName: string;
-  lastName: string;
+interface Shipment {
+  trackingId: number;
+  latitude: number;
+  longitude: number;
 }
 
-const blockchain: Blockchain<User> = new Blockchain<User>();
+const shipments: Shipment[] = [
+  {
+    latitude: 40.758895,
+    longitude: -73.985131,
+    trackingId: 42
+  }
+];
 
-const newBlock: Block<User> = blockchain.add({
-  id: 42,
-  firstName: "Elon",
-  lastName: "Musk"
-});
+const blockchain: Blockchain<Shipment[]> = new Blockchain<Shipment[]>();
+
+const latestBlock: Block<Shipment[]> = blockchain.add(shipments);
 ```
 
 ## Installation
@@ -68,19 +72,21 @@ Returns the following JSON for the example above:
     "index": 0,
     "parent": null,
     "data": "GENESIS",
-    "time": 1522053753184,
-    "hash": "42eb51b086fadc504ca3f494e6332788a008c8aff7b7369d22268540e55f1854"
+    "time": 1522226975631,
+    "hash": "2e465389daa2d20a41fcd12cb7cf2b59fbd04e72dcd5d21cb5c72c91fd83119b"
   },
   {
     "index": 1,
-    "parent": "42eb51b086fadc504ca3f494e6332788a008c8aff7b7369d22268540e55f1854",
-    "data": {
-      "id": 42,
-      "firstName": "Elon",
-      "lastName": "Musk"
-    },
-    "time": 1522053753184,
-    "hash": "45c102b6b73fcab0f1396079c94a863640d0927205b3f0803702f047155412f8"
+    "parent": "2e465389daa2d20a41fcd12cb7cf2b59fbd04e72dcd5d21cb5c72c91fd83119b",
+    "data": [
+      {
+        "latitude": 40.758895,
+        "longitude": -73.985131,
+        "trackingId": 42
+      }
+    ],
+    "time": 1522226975631,
+    "hash": "9467452a7cdb8491d3b5c1cce93583bb2840e6c0b9e2612f6a915e1df207c52a"
   }
 ]
 ```
