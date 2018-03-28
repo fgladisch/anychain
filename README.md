@@ -9,11 +9,15 @@ const { Blockchain } = require("@anychain/core");
 
 const blockchain = new Blockchain();
 
-blockchain.add({
-  id: 42,
-  firstName: "Elon",
-  lastName: "Musk"
-});
+const shipments = [
+  {
+    trackingId: 42,
+    latitude: 40.758895,
+    longitude: -73.985131
+  }
+];
+
+blockchain.add(shipments);
 ```
 
 ## Quick Start (TypeScript)
@@ -29,9 +33,9 @@ interface Shipment {
 
 const shipments: Shipment[] = [
   {
+    trackingId: 42,
     latitude: 40.758895,
-    longitude: -73.985131,
-    trackingId: 42
+    longitude: -73.985131
   }
 ];
 
@@ -80,9 +84,9 @@ Returns the following JSON for the example above:
     "parent": "2e465389daa2d20a41fcd12cb7cf2b59fbd04e72dcd5d21cb5c72c91fd83119b",
     "data": [
       {
+        "trackingId": 42,
         "latitude": 40.758895,
-        "longitude": -73.985131,
-        "trackingId": 42
+        "longitude": -73.985131
       }
     ],
     "time": 1522226975631,
