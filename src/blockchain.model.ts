@@ -33,6 +33,10 @@ export class Blockchain<T> {
     this.chain = [genesisBlock];
   }
 
+  public get data(): (T | string)[] {
+    return this.chain.map(block => block.data);
+  }
+
   public getChain(): Block<T>[] {
     return this.chain;
   }

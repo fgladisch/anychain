@@ -36,6 +36,12 @@ describe("Blockchain", () => {
     assert.equal(latestBlock.data, TEST_DATA);
   });
 
+  it("should expose the data property", () => {
+    const blockchain: Blockchain<Shipment[]> = new Blockchain<Shipment[]>();
+    blockchain.add(TEST_DATA);
+    assert.include(blockchain.data, TEST_DATA);
+  });
+
   it("should overwrite the existing chain", () => {
     const blockchain: Blockchain<Shipment[]> = new Blockchain<Shipment[]>();
     blockchain.add(TEST_DATA);
