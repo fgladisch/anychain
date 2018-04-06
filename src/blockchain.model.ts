@@ -2,9 +2,9 @@ import { Block } from "./block.model";
 
 export class Blockchain<T> {
   public static validateChain(chain: Block<any>[], genesis?: Block<any>): boolean {
-    const isGenesisValid: boolean = genesis && Block.calculateHash(genesis) === chain[0].hash;
+    const isGenesisInvalid: boolean = genesis && Block.calculateHash(genesis) !== chain[0].hash;
 
-    if (!Array.isArray(chain) || chain.length === 0 || isGenesisValid) {
+    if (!Array.isArray(chain) || chain.length === 0 || isGenesisInvalid) {
       return false;
     }
 
