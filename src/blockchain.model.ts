@@ -2,15 +2,9 @@ import { Block } from "./block.model";
 
 export class Blockchain<T> {
   public static validateChain(chain: Block<any>[], genesis?: Block<any>): boolean {
-    if (!Array.isArray(chain)) {
-      return false;
-    }
+    const isGenesisValid: boolean = genesis && Block.calculateHash(genesis) === chain[0].hash;
 
-    if (chain.length === 0) {
-      return false;
-    }
-
-    if (genesis && Block.calculateHash(genesis) !== chain[0].hash) {
+    if (!Array.isArray(chain) || chain.length === 0 || isGenesisValid) {
       return false;
     }
 
@@ -24,13 +18,13 @@ export class Blockchain<T> {
   constructor(chain?: Block<T>[]) {
     if (chain) {
       if (!Blockchain.validateChain(chain)) {
-        throw new Error("Invalid chain array.");
+        throw new Error("Invalid chain.");
       }
       this.chain = chain;
-      return;
+    } else {
+      const genesisBlock: Block<T> = new Block<T>(null, "GENESIS");
+      this.chain = [genesisBlock];
     }
-    const genesisBlock: Block<T> = new Block<T>(null, "GENESIS");
-    this.chain = [genesisBlock];
   }
 
   public get data(): (T | string)[] {
