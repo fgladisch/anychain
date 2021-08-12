@@ -20,21 +20,24 @@
     "p2p",
     "typescript"
   ],
-  "devDependencies": {
-    "@types/chai": "4.1.2",
-    "@types/mocha": "5.0.0",
-    "@types/node": "9.6.0",
-    "chai": "4.1.2",
-    "mocha": "5.0.5",
-    "rimraf": "2.6.2",
-    "ts-node": "5.0.1",
-    "tslint": "5.9.1",
-    "tslint-config-prettier": "1.10.0",
-    "typescript": "2.7.2"
-  },
   "scripts": {
     "build": "rimraf dist && tsc",
     "test": "mocha -r ts-node/register src/**/*.test.ts",
-    "prepublishOnly": "yarn test && yarn build"
+    "prepublishOnly": "npm run test && npm run build",
+    "lint": "eslint src --ext .ts"
+  },
+  "devDependencies": {
+    "@types/chai": "4.2.21",
+    "@types/mocha": "9.0.0",
+    "@types/node": "16.6.0",
+    "@typescript-eslint/eslint-plugin": "^4.29.1",
+    "@typescript-eslint/parser": "^4.29.1",
+    "chai": "4.3.4",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint": "^7.32.0",
+    "mocha": "9.0.3",
+    "rimraf": "3.0.2",
+    "ts-node": "10.2.0",
+    "typescript": "4.3.5"
   }
 }

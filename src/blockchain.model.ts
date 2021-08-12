@@ -1,18 +1,6 @@
 import { Block } from "./block.model";
 
 export class Blockchain<T> {
-  public static validateChain(chain: Block<any>[], genesis?: Block<any>): boolean {
-    const isGenesisInvalid: boolean = genesis && Block.calculateHash(genesis) !== chain[0].hash;
-
-    if (!Array.isArray(chain) || chain.length === 0 || isGenesisInvalid) {
-      return false;
-    }
-
-    return chain.reduce((valid, block) => {
-      return (block.index !== 0 && Block.validate(block, chain[block.index - 1])) || valid;
-    }, true);
-  }
-
   private chain: Block<T>[];
 
   constructor(chain?: Block<T>[]) {
@@ -27,8 +15,20 @@ export class Blockchain<T> {
     }
   }
 
+  public static validateChain(chain: Block<any>[], genesis?: Block<any>): boolean {
+    const isGenesisInvalid = Boolean(genesis && Block.calculateHash(genesis) !== chain[0].hash);
+
+    if (!Array.isArray(chain) || chain.length === 0 || isGenesisInvalid) {
+      return false;
+    }
+
+    return chain.reduce((valid, block) => {
+      return (block.index !== 0 && Block.validate(block, chain[block.index - 1])) || valid;
+    }, true);
+  }
+
   public get data(): (T | string)[] {
-    return this.chain.map(block => block.data);
+    return this.chain.map((block) => block.data);
   }
 
   public getChain(): Block<T>[] {
